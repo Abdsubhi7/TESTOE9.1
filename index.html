@@ -251,6 +251,33 @@ function updateStatus(rowId) {
             alert('No rows are behind schedule.');
         }
     }
+
+
+// Save the selection to localStorage
+    function saveSelection(rowId) {
+        const row = document.getElementById(rowId);
+        const frequency = row.querySelector('select').value;
+        localStorage.setItem(`frequency-${rowId}`, frequency);
+    }
+
+    // Load the saved selection from localStorage
+    function loadSelections() {
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const rowId = row.id;
+            const selectElement = row.querySelector('select');
+            const savedFrequency = localStorage.getItem(`frequency-${rowId}`);
+            if (savedFrequency) {
+                selectElement.value = savedFrequency;
+                updatePlan(rowId); // Reapply the selection effects
+            }
+        });
+    }
+
+    // Call loadSelections on page load
+    window.onload = function () {
+        loadSelections();
+    };
     </script>
 </head>
 <body>
@@ -338,7 +365,7 @@ function updateStatus(rowId) {
                 <td>Email</td>
                 <td>Event/Special</td>
                 <td>
-                    <select onchange="updatePlan('row-1')">
+                    <select onchange="updatePlan('row-1'); saveSelection('row-1');">
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
                         <option value="quarterly">Quarterly</option>
@@ -410,7 +437,7 @@ function updateStatus(rowId) {
                 <td>Report</td>
                 <td>Online Portal</td>
                 <td>
-                    <select onchange="updatePlan('row-2')">
+                    <select onchange="updatePlan('row-2'); saveSelection('row-2');">
                         <option value="weekly">Weekly</option>
                         <option value="monthly">Monthly</option>
                         <option value="quarterly">Quarterly</option>
@@ -480,7 +507,7 @@ function updateStatus(rowId) {
         <td>Email</td>
         <td>Newsletter</td>
         <td>
-            <select onchange="updatePlan('row-3')">
+            <select onchange="updatePlan('row-3'); saveSelection('row-3');">
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="quarterly">Quarterly</option>
@@ -550,7 +577,7 @@ function updateStatus(rowId) {
         <td>Report</td>
         <td>Email</td>
         <td>
-            <select onchange="updatePlan('row-4')">
+            <select onchange="updatePlan('row-4'); saveSelection('row-4');">
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="quarterly">Quarterly</option>
@@ -620,7 +647,7 @@ function updateStatus(rowId) {
         <td>Training</td>
         <td>Online Portal</td>
         <td>
-            <select onchange="updatePlan('row-5')">
+            <select onchange="updatePlan('row-5'); saveSelection('row-5');">
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="quarterly">Quarterly</option>
@@ -690,7 +717,7 @@ function updateStatus(rowId) {
         <td>Report</td>
         <td>Email</td>
         <td>
-            <select onchange="updatePlan('row-6')">
+            <select onchange="updatePlan('row-6'); saveSelection('row-6');">
                 <option value="weekly">Weekly</option>
                 <option value="monthly">Monthly</option>
                 <option value="quarterly">Quarterly</option>
